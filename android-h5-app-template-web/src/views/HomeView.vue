@@ -1,9 +1,14 @@
+<template>
+  <div>
+    <h1>Home View</h1>
+    <example-component />
+  </div>
+</template>
+
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import ExampleComponent from '@/components/ExampleComponent.vue'
 </script>
 
-<template>
-  <main>
-    <TheWelcome />
-  </main>
-</template>
+<style scoped lang="scss">
+
+</style>
