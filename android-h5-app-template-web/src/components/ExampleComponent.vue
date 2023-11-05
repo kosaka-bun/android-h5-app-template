@@ -12,6 +12,10 @@
       <span>Android JavaScript Interface:</span>
       <el-button @click="androidInterfaceTest">Test</el-button>
     </p>
+    <p>
+      <span>开启一个新的WebActivity：</span>
+      <el-button @click="openNewWebActivityTest">开启</el-button>
+    </p>
   </div>
 </template>
 
@@ -30,6 +34,10 @@ function vantTest() {
 
 function androidInterfaceTest() {
   androidInterfaces.basicJsInterface.test()
+}
+
+function openNewWebActivityTest() {
+  androidInterfaces.basicJsInterface.openNewWebActivity('/another')
 }
 </script>
 
