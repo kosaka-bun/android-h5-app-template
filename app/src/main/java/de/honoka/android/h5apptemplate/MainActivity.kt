@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         fullScreenToShow()
         setContentView(R.layout.activity_main)
         CoroutineScope(Dispatchers.IO).launch {
+            //init可能是一个耗时的操作，故在IO线程中执行，防止阻塞UI线程
             initApplication()
             jumpToWebActivty()
         }
@@ -36,11 +37,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initApplication() {
-        startService(Intent(this, WebServerService::class.java))
+        WebServer.instance = WebServer(application).apply {
+            start()
+        }
     }
 
     private fun jumpToWebActivty() = runOnUiThread {
-        startActivity(Intent(this, WebActivity::class.java))
+        startActivity(Intent(this, WebActivity::class.java).apply {
+            putExtra("firstWebActivity", true)
+        })
         finish()
     }
 }

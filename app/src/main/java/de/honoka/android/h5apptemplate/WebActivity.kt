@@ -14,17 +14,38 @@ import kotlin.system.exitProcess
 @SuppressLint("SetJavaScriptEnabled")
 class WebActivity : AppCompatActivity() {
 
+    private lateinit var url: String
+
+    /**
+     * 是否是该应用当中第一个被开启的WebActivity
+     */
+    private var firstWebActivity: Boolean = false
+
+    private lateinit var webView: WebView
+
     @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //解决状态栏白底白字的问题
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         setContentView(R.layout.activity_web)
+        initActivityParams()
         initWebView()
+        registerJsInterface()
+    }
+
+    override fun onResume() {
+        WebServer.checkOrRestartInstance()
+        super.onResume()
+    }
+
+    private fun initActivityParams() {
+        url = intent.getStringExtra("url") ?: "http://localhost:${WebServerConstants.SERVER_PORT}/"
+        firstWebActivity = intent.getBooleanExtra("firstWebActivity", false)
     }
 
     private fun initWebView() {
-        val webView = findViewById<WebView>(R.id.web_view).apply {
+        webView = findViewById<WebView>(R.id.web_view).apply {
             webViewClient = object : WebViewClient() {
 
                 //重写此方法，解决WebView在重定向时打开系统浏览器的问题
@@ -43,12 +64,11 @@ class WebActivity : AppCompatActivity() {
                 //必须打开，否则网页可能显示为空白
                 javaScriptEnabled = true
             }
-        }
-        webView.run {
+            //禁用默认长按监听器
             setOnLongClickListener { true }
-            isVerticalScrollBarEnabled = true
+            isVerticalScrollBarEnabled = false
             scrollBarStyle = View.SCROLLBARS_OUTSIDE_OVERLAY
-            loadUrl("http://localhost:38081/")
+            loadUrl(this@WebActivity.url)
         }
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
 
@@ -59,14 +79,25 @@ class WebActivity : AppCompatActivity() {
                     webView.goBack()
                     return
                 }
+                if(!firstWebActivity) {
+                    finish()
+                    return
+                }
                 if(System.currentTimeMillis() - lastTimePressBack > 2500) {
                     Toast.makeText(this@WebActivity, "再进行一次返回退出应用", Toast.LENGTH_SHORT).show()
                     lastTimePressBack = System.currentTimeMillis()
                 } else {
                     finish()
-                    exitProcess(0)
+                    if(firstWebActivity) exitProcess(0)
                 }
             }
         })
+    }
+
+    @SuppressLint("JavascriptInterface")
+    private fun registerJsInterface() {
+        getAllJsInterfaces(webView).forEach {
+            webView.addJavascriptInterface(it, "android_${it.javaClass.simpleName}")
+        }
     }
 }
