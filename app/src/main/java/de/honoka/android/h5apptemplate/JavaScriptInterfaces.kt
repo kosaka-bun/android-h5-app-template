@@ -15,7 +15,7 @@ class BasicJsInterface(
 
     @JavascriptInterface
     fun openNewWebActivity(path: String) {
-        val url = "http://localhost:${WebServerConstants.SERVER_PORT}$path"
+        val url = "http://localhost:${WebServerVariables.serverPort}$path"
         webView.context.run {
             startActivity(Intent(this, WebActivity::class.java).apply {
                 putExtra("url", url)

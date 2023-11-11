@@ -37,9 +37,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initApplication() {
-        WebServer.instance = WebServer(application).apply {
-            start()
+        initWebServer()
+    }
+
+    private fun initWebServer() {
+        for(i in 0 until 10) {
+            try {
+                WebServer.instance = WebServer(application, WebServerVariables.serverPort).apply {
+                    start()
+                }
+                return
+            } catch(t: Throwable) {
+                WebServerVariables.serverPort += 1
+                continue
+            }
         }
+        throw RuntimeException("Web Server initialize failed")
     }
 
     private fun jumpToWebActivty() = runOnUiThread {

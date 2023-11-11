@@ -5,13 +5,16 @@ import android.webkit.MimeTypeMap
 import fi.iki.elonen.NanoHTTPD
 import java.io.ByteArrayInputStream
 
-object WebServerConstants {
+object WebServerVariables {
 
-    //不同应用使用相同的端口可能导致APP启动闪退，需事先修改此处的监听端口
-    const val SERVER_PORT = 38081
+    var serverPort = 38081
 }
 
-class WebServer(private val application: Application) : NanoHTTPD(WebServerConstants.SERVER_PORT) {
+@Suppress("CanBeParameter")
+class WebServer(
+    private val application: Application,
+    private val port: Int = WebServerVariables.serverPort
+) : NanoHTTPD(port) {
 
     companion object {
 

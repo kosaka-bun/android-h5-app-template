@@ -40,7 +40,7 @@ class WebActivity : AppCompatActivity() {
     }
 
     private fun initActivityParams() {
-        url = intent.getStringExtra("url") ?: "http://localhost:${WebServerConstants.SERVER_PORT}/"
+        url = intent.getStringExtra("url") ?: "http://localhost:${WebServerVariables.serverPort}/"
         firstWebActivity = intent.getBooleanExtra("firstWebActivity", false)
     }
 
