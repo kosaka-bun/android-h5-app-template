@@ -25,7 +25,7 @@ class WebActivity : AppCompatActivity() {
      */
     private var firstWebActivity: Boolean = false
 
-    private lateinit var webView: WebView
+    lateinit var webView: WebView
 
     private val webViewClient = object : WebViewClient() {
 
@@ -139,7 +139,7 @@ class WebActivity : AppCompatActivity() {
 
     @SuppressLint("JavascriptInterface")
     private fun registerJsInterface() {
-        getAllJsInterfaces(webView).forEach {
+        getAllJsInterfaces(this).forEach {
             webView.addJavascriptInterface(it, "android_${it.javaClass.simpleName}")
         }
     }
