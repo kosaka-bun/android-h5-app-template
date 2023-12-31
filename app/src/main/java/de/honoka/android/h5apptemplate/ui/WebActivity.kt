@@ -1,4 +1,4 @@
-package de.honoka.android.h5apptemplate
+package de.honoka.android.h5apptemplate.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -13,6 +13,9 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import de.honoka.android.h5apptemplate.util.WebServer
+import de.honoka.android.h5apptemplate.util.WebServerVariables
+import de.honoka.android.h5apptemplate.util.getAllJsInterfaces
 import kotlin.system.exitProcess
 
 @SuppressLint("SetJavaScriptEnabled")

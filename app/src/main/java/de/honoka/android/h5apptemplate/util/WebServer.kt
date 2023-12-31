@@ -1,4 +1,4 @@
-package de.honoka.android.h5apptemplate
+package de.honoka.android.h5apptemplate.util
 
 import android.app.Application
 import android.webkit.MimeTypeMap

@@ -1,8 +1,9 @@
-package de.honoka.android.h5apptemplate
+package de.honoka.android.h5apptemplate.util
 
 import android.content.Intent
 import android.webkit.JavascriptInterface
 import android.widget.Toast
+import de.honoka.android.h5apptemplate.ui.WebActivity
 
 fun getAllJsInterfaces(webActivity: WebActivity) = arrayOf(
     BasicJsInterface(webActivity)
