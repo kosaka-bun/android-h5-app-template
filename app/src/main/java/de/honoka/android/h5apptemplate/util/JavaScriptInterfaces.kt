@@ -5,9 +5,12 @@ import android.webkit.JavascriptInterface
 import android.widget.Toast
 import de.honoka.android.h5apptemplate.ui.WebActivity
 
-fun getAllJsInterfaces(webActivity: WebActivity) = arrayOf(
-    BasicJsInterface(webActivity)
-)
+object JavaScriptInterfaces {
+
+    fun newAll(webActivity: WebActivity) = arrayOf(
+        BasicJsInterface(webActivity)
+    )
+}
 
 class BasicJsInterface(
     private val webActivity: WebActivity

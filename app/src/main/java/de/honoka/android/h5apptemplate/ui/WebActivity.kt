@@ -13,9 +13,9 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import de.honoka.android.h5apptemplate.util.JavaScriptInterfaces
 import de.honoka.android.h5apptemplate.util.WebServer
 import de.honoka.android.h5apptemplate.util.WebServerVariables
-import de.honoka.android.h5apptemplate.util.getAllJsInterfaces
 import kotlin.system.exitProcess
 
 @SuppressLint("SetJavaScriptEnabled")
@@ -110,7 +110,6 @@ class WebActivity : AppCompatActivity() {
         setContentView(R.layout.activity_web)
         initActivityParams()
         initWebView()
-        registerJsInterface()
     }
 
     override fun onResume() {
@@ -124,7 +123,8 @@ class WebActivity : AppCompatActivity() {
     }
 
     private fun initWebView() {
-        webView = findViewById<WebView>(R.id.web_view).apply {
+        webView = findViewById(R.id.web_view)
+        webView.apply {
             webViewClient = this@WebActivity.webViewClient
             webChromeClient = this@WebActivity.webChromeClient
             settings.run {
@@ -135,6 +135,7 @@ class WebActivity : AppCompatActivity() {
             setOnLongClickListener { true }
             isVerticalScrollBarEnabled = false
             scrollBarStyle = View.SCROLLBARS_OUTSIDE_OVERLAY
+            registerJsInterface()
             loadUrl(this@WebActivity.url)
         }
         onBackPressedDispatcher.addCallback(onBackPressedCallback)
@@ -142,7 +143,7 @@ class WebActivity : AppCompatActivity() {
 
     @SuppressLint("JavascriptInterface")
     private fun registerJsInterface() {
-        getAllJsInterfaces(this).forEach {
+        JavaScriptInterfaces.newAll(this).forEach {
             webView.addJavascriptInterface(it, "android_${it.javaClass.simpleName}")
         }
     }
