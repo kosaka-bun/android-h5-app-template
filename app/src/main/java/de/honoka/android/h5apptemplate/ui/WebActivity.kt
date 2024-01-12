@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import de.honoka.android.h5apptemplate.R
 import de.honoka.android.h5apptemplate.util.JavaScriptInterfaces
 import de.honoka.android.h5apptemplate.util.WebServer
 import de.honoka.android.h5apptemplate.util.WebServerVariables

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import de.honoka.android.h5apptemplate.R
 import de.honoka.android.h5apptemplate.util.WebServer
 import de.honoka.android.h5apptemplate.util.WebServerVariables
 import kotlinx.coroutines.CoroutineScope
