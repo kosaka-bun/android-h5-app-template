@@ -16,13 +16,22 @@
       <span>开启一个新的WebActivity：</span>
       <el-button @click="openNewWebActivityTest">开启</el-button>
     </p>
+    <p>
+      <span>Android Asynchronous Method:</span>
+      <el-button @click="androidAsyncMethodTest" :loading="status.androidAsyncMethodTestLoading">Test</el-button>
+    </p>
   </div>
 </template>
 
 <script setup>
 import messageUtils from '@/utils/message'
 import { showToast } from 'vant'
-import androidInterfaces from '@/stores/androidInterfaces'
+import androidInterfaces from '@/utils/androidInterfaces'
+import { reactive } from 'vue'
+
+const status = reactive({
+  androidAsyncMethodTestLoading: false
+})
 
 function elementPlusTest() {
   messageUtils.success('Test')
@@ -38,6 +47,18 @@ function androidInterfaceTest() {
 
 function openNewWebActivityTest() {
   androidInterfaces.basicJsInterface.openNewWebActivity('/another')
+}
+
+function androidAsyncMethodTest() {
+  let a = Math.floor(Math.random() * 100) + 1
+  let b = Math.floor(Math.random() * 100) + 1
+  status.androidAsyncMethodTestLoading = true
+  messageUtils.success(`${a} + ${b}`)
+  androidInterfaces.basicJsInterface.asyncMethodTest(a, b).then(res => {
+    messageUtils.success(`sum: ${res.sum}`)
+  }).finally(() => {
+    status.androidAsyncMethodTestLoading = false
+  })
 }
 </script>
 

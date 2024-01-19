@@ -14,7 +14,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import de.honoka.android.h5apptemplate.R
-import de.honoka.android.h5apptemplate.util.JavaScriptInterfaces
+import de.honoka.android.h5apptemplate.jsinterface.JavaScriptInterfaces
 import de.honoka.android.h5apptemplate.util.WebServer
 import de.honoka.android.h5apptemplate.util.WebServerVariables
 import kotlin.system.exitProcess
@@ -70,6 +70,8 @@ class WebActivity : AppCompatActivity() {
             webView.visibility = View.VISIBLE
         }
     }
+
+    private lateinit var javaScriptInterfaces: JavaScriptInterfaces
 
     private var fullScreenView: View? = null
 
@@ -136,22 +138,19 @@ class WebActivity : AppCompatActivity() {
             setOnLongClickListener { true }
             isVerticalScrollBarEnabled = false
             scrollBarStyle = View.SCROLLBARS_OUTSIDE_OVERLAY
-            registerJsInterface()
+            javaScriptInterfaces = JavaScriptInterfaces(this@WebActivity)
             loadUrl(this@WebActivity.url)
         }
         onBackPressedDispatcher.addCallback(onBackPressedCallback)
-    }
-
-    @SuppressLint("JavascriptInterface")
-    private fun registerJsInterface() {
-        JavaScriptInterfaces.newAll(this).forEach {
-            webView.addJavascriptInterface(it, "android_${it.javaClass.simpleName}")
-        }
     }
 
     @Suppress("DEPRECATION")
     private fun showStatusBar(show: Boolean = true) {
         val flag = if(show) 0 else WindowManager.LayoutParams.FLAG_FULLSCREEN
         window.setFlags(flag, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+    }
+
+    fun evaluateJavascript(script: String, callback: (String) -> Unit = {}) = runOnUiThread {
+        webView.evaluateJavascript(script, callback)
     }
 }
