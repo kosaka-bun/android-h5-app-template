@@ -10,8 +10,9 @@ const basicJsInterface = jsInterfaceUtils.getJsInterfaceStub('BasicJsInterface',
   test: jsInterfaceUtils.emptyImplementation(),
   asyncMethodTest: {
     isAsync: true,
-    fallback: (a, b) => {
+    fallback: async (a, b) => {
       jsInterfaceUtils.jsInterfaceWarning()
+      await codeUtils.sleep(3000)
       return {
         sum: a + b
       }

@@ -15,12 +15,12 @@ export const jsInterfaceUtils = {
         return
       }
       if(definition instanceof Object) {
-        let isAsync = definition['isAsync'] ?? false
+        let isAsync = definition.isAsync ?? false
         if(!isAsync) {
           stub[it] = jsInterface != null ? this.getWrappedInterfaceMethod(jsInterface, it) : definition.fallback
         } else {
           stub[it] = jsInterface != null ? jsInterfaceAsyncSupportUtils.getAsyncMethodStub(jsInterfaceName, it) : (
-            async () => definition.fallback()
+            async (...args) => await definition.fallback(...args)
           )
         }
         return
