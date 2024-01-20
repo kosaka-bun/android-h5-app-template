@@ -4,7 +4,7 @@ import android.content.Intent
 import android.webkit.JavascriptInterface
 import android.widget.Toast
 import com.alibaba.fastjson2.JSONObject
-import de.honoka.android.h5apptemplate.jsinterface.definition.async.AsyncJavascriptInterface
+import de.honoka.android.h5apptemplate.jsinterface.async.AsyncJavascriptInterface
 import de.honoka.android.h5apptemplate.ui.WebActivity
 import de.honoka.android.h5apptemplate.util.WebServerVariables
 import java.util.UUID

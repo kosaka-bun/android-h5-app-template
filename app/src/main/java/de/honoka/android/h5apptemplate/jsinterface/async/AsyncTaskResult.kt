@@ -1,4 +1,4 @@
-package de.honoka.android.h5apptemplate.jsinterface.definition.async
+package de.honoka.android.h5apptemplate.jsinterface.async
 
 data class AsyncTaskResult(
 

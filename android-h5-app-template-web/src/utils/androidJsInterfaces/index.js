@@ -1,11 +1,11 @@
-import androidInterfaces, { androidAsyncMethodCallbackUtils } from '@/utils/androidInterfaces/index'
+import jsInterfaceAsyncSupportUtils from '@/utils/androidJsInterfaces/asyncSupport'
 
-const androidInterfacesCompanion = {
-  emptyImplementation: () => () => this.androidInterfaceWarning(),
-  androidInterfaceWarning() {
+export const jsInterfaceUtils = {
+  emptyImplementation: () => () => this.jsInterfaceWarning(),
+  jsInterfaceWarning() {
     console.warn('You are calling a Android JavaScript Interface function directly in browser!')
   },
-  getAndroidInterfaceStub(jsInterfaceName, methodsDefinitions) {
+  getJsInterfaceStub(jsInterfaceName, methodsDefinitions) {
     let jsInterface = window[`android_${jsInterfaceName}`]
     let stub = {}
     Object.keys(methodsDefinitions).forEach(it => {
@@ -19,8 +19,8 @@ const androidInterfacesCompanion = {
         if(!isAsync) {
           stub[it] = jsInterface != null ? this.getWrappedInterfaceMethod(jsInterface, it) : definition.fallback
         } else {
-          stub[it] = jsInterface != null ? this.getAndroidAsyncMethodStub(jsInterfaceName, it) : (
-              async () => definition.fallback()
+          stub[it] = jsInterface != null ? jsInterfaceAsyncSupportUtils.getAsyncMethodStub(jsInterfaceName, it) : (
+            async () => definition.fallback()
           )
         }
         return
@@ -31,14 +31,5 @@ const androidInterfacesCompanion = {
   },
   getWrappedInterfaceMethod(jsInterface, methodName) {
     return (...args) => jsInterface[methodName](...args)
-  },
-  getAndroidAsyncMethodStub: (jsInterfaceName, methodName) => {
-    return (...args) => new Promise((resolve, reject) => {
-      let callbackId = androidInterfaces.basicJsInterface.getUuid()
-      androidAsyncMethodCallbackUtils.addCallback(callbackId, resolve, reject)
-      androidInterfaces.asyncTaskJsInterface.invokeAsyncMethod(jsInterfaceName, methodName, callbackId, JSON.stringify(args))
-    })
   }
 }
-
-export default androidInterfacesCompanion

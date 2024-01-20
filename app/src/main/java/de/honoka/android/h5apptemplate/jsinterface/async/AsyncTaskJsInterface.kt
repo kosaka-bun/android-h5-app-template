@@ -1,4 +1,4 @@
-package de.honoka.android.h5apptemplate.jsinterface.definition.async
+package de.honoka.android.h5apptemplate.jsinterface.async
 
 import android.webkit.JavascriptInterface
 import cn.hutool.core.thread.BlockPolicy
@@ -19,8 +19,6 @@ class AsyncTaskJsInterface(
         5, 30, 60, TimeUnit.SECONDS,
         LinkedBlockingQueue(), BlockPolicy()
     )
-
-    private val resultOfAsyncTasks = HashMap<String, AsyncTaskResult>()
 
     @JavascriptInterface
     fun invokeAsyncMethod(jsInterfaceName: String, methodName: String, callbackId: String, args: String) {
@@ -52,16 +50,9 @@ class AsyncTaskJsInterface(
                     this.result = t.message
                 }
             }
-            resultOfAsyncTasks[callbackId] = result
-            val script = "window.androidAsyncMethodCallbackUtils.invokeCallback('${callbackId}')"
+            val resultStr = JSON.toJSONString(result)
+            val script = "window.jsInterfaceAsyncMethodCallbackUtils.invokeCallback('$callbackId', $resultStr)"
             webActivity.evaluateJavascript(script)
         }
-    }
-
-    @JavascriptInterface
-    fun getAsyncMethodResult(id: String): String? = resultOfAsyncTasks[id].let {
-        val result = if(it == null) null else JSON.toJSONString(it)
-        resultOfAsyncTasks.remove(id)
-        result
     }
 }

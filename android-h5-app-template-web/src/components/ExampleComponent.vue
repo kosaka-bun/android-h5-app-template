@@ -26,8 +26,8 @@
 <script setup>
 import messageUtils from '@/utils/message'
 import { showToast } from 'vant'
-import androidInterfaces from '@/utils/androidInterfaces'
 import { reactive } from 'vue'
+import basicJsInterface from '@/utils/androidJsInterfaces/definition/basicJsInterface'
 
 const status = reactive({
   androidAsyncMethodTestLoading: false
@@ -42,11 +42,11 @@ function vantTest() {
 }
 
 function androidInterfaceTest() {
-  androidInterfaces.basicJsInterface.test()
+  basicJsInterface.test()
 }
 
 function openNewWebActivityTest() {
-  androidInterfaces.basicJsInterface.openNewWebActivity('/another')
+  basicJsInterface.openNewWebActivity('/another')
 }
 
 function androidAsyncMethodTest() {
@@ -54,7 +54,7 @@ function androidAsyncMethodTest() {
   let b = Math.floor(Math.random() * 100) + 1
   status.androidAsyncMethodTestLoading = true
   messageUtils.success(`${a} + ${b}`)
-  androidInterfaces.basicJsInterface.asyncMethodTest(a, b).then(res => {
+  basicJsInterface.asyncMethodTest(a, b).then(res => {
     messageUtils.success(`sum: ${res.sum}`)
   }).finally(() => {
     status.androidAsyncMethodTestLoading = false
