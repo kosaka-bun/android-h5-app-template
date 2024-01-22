@@ -6,7 +6,6 @@ const basicJsInterface = jsInterfaceUtils.getJsInterfaceStub('BasicJsInterface',
     jsInterfaceUtils.jsInterfaceWarning()
     window.location.href = path
   },
-  getUuid: () => codeUtils.randomUUID(),
   test: jsInterfaceUtils.emptyImplementation(),
   asyncMethodTest: {
     isAsync: true,

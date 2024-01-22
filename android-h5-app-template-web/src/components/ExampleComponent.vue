@@ -27,7 +27,7 @@
 import messageUtils from '@/utils/message'
 import { showToast } from 'vant'
 import { reactive } from 'vue'
-import basicJsInterface from '@/utils/androidJsInterfaces/definition/basicJsInterface'
+import basicJsInterface from '@/androidJsInterfaces/basicJsInterface'
 
 const status = reactive({
   androidAsyncMethodTestLoading: false
