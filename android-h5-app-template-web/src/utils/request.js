@@ -1,4 +1,4 @@
-//noinspection JSUnresolvedReference
+//noinspection JSUnresolvedReference,JSUnusedGlobalSymbols
 
 import axios from 'axios'
 import messageUtils from './message'
@@ -26,10 +26,17 @@ request.interceptors.response.use(response => {
   console.log('Axios error: ', error)
   if(error.code === 'ERR_NETWORK') {
     messageUtils.error('网络请求失败')
+    return Promise.reject(error)
+  }
+  let responseBody = error.response.data
+  //noinspection JSUnresolvedReference
+  let message = responseBody?.msg
+  if(message != null && message !== '') {
+    messageUtils.error(message)
   } else {
     messageUtils.error(error.message)
   }
-  return Promise.reject(error)
+  return Promise.reject(responseBody ?? error)
 })
 
 export default request
