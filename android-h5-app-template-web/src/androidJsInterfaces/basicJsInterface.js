@@ -3,14 +3,12 @@ import { jsInterfaceUtils } from '@/utils/androidJsInterfaces'
 
 const methodDefinitions = {
   openNewWebActivity: path => {
-    jsInterfaceUtils.jsInterfaceWarning()
     window.location.href = path
   },
-  test: jsInterfaceUtils.emptyImplementation(),
+  test: () => {},
   asyncMethodTest: {
     isAsync: true,
     fallback: async (a, b) => {
-      jsInterfaceUtils.jsInterfaceWarning()
       await codeUtils.sleep(3000)
       return {
         sum: a + b
