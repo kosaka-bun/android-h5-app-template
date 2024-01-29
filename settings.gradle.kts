@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "H5 App Template"
+rootProject.name = "android-h5-app-template"
 include(":app")
