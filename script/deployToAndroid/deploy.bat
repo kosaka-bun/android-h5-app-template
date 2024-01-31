@@ -1,5 +1,5 @@
 chcp 65001
-cd /d %~dp0.\
+cd /d %~dp0..\..\app-web
 
 set TARGET_DIR=..\app\src\main\assets\web
 
