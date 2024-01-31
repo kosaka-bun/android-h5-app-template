@@ -20,4 +20,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "android-h5-app-template"
+
 include(":app")
+include(":app-web")
