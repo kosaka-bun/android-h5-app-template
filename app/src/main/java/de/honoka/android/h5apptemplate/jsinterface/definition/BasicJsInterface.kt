@@ -7,7 +7,7 @@ import com.alibaba.fastjson2.JSONObject
 import de.honoka.android.h5apptemplate.jsinterface.async.AsyncJavascriptInterface
 import de.honoka.android.h5apptemplate.ui.WebActivity
 import de.honoka.android.h5apptemplate.util.WebServerVariables
-import java.util.UUID
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class BasicJsInterface(private val webActivity: WebActivity) {
@@ -31,7 +31,6 @@ class BasicJsInterface(private val webActivity: WebActivity) {
     }
 
     @AsyncJavascriptInterface
-    @JavascriptInterface
     fun asyncMethodTest(a: String, b: String): JSONObject {
         TimeUnit.SECONDS.sleep(3)
         return JSONObject().fluentPut("sum", (a.toInt() + b.toInt()).toString())
