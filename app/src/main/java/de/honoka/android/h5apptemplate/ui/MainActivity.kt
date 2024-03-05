@@ -6,8 +6,9 @@ import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import de.honoka.android.h5apptemplate.R
-import de.honoka.android.h5apptemplate.util.WebServer
-import de.honoka.android.h5apptemplate.util.WebServerVariables
+import de.honoka.sdk.util.android.common.GlobalComponents
+import de.honoka.sdk.util.android.server.HttpServer
+import de.honoka.sdk.util.android.server.HttpServerUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         fullScreenToShow()
         setContentView(R.layout.activity_main)
+        GlobalComponents.application = application
         CoroutineScope(Dispatchers.IO).launch {
             //init可能是一个耗时的操作，故在IO线程中执行，防止阻塞UI线程
             initApplication()
@@ -40,22 +42,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initApplication() {
-        initWebServer()
+        initHttpServer()
     }
 
-    private fun initWebServer() {
-        for(i in 0 until 10) {
-            try {
-                WebServer.instance = WebServer(application, WebServerVariables.serverPort).apply {
-                    start()
-                }
-                return
-            } catch(t: Throwable) {
-                WebServerVariables.serverPort += 1
-                continue
-            }
-        }
-        throw RuntimeException("Web Server initialize failed")
+    private fun initHttpServer() {
+        HttpServerUtils.initServerPorts()
+        HttpServer.createInstance()
     }
 
     private fun jumpToWebActivty() = runOnUiThread {

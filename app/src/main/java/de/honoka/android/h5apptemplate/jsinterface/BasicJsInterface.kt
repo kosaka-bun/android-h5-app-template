@@ -1,12 +1,12 @@
-package de.honoka.android.h5apptemplate.jsinterface.definition
+package de.honoka.android.h5apptemplate.jsinterface
 
 import android.content.Intent
 import android.webkit.JavascriptInterface
 import android.widget.Toast
-import com.alibaba.fastjson2.JSONObject
-import de.honoka.android.h5apptemplate.jsinterface.async.AsyncJavascriptInterface
+import cn.hutool.json.JSONObject
 import de.honoka.android.h5apptemplate.ui.WebActivity
-import de.honoka.android.h5apptemplate.util.WebServerVariables
+import de.honoka.sdk.util.android.jsinterface.async.AsyncJavascriptInterface
+import de.honoka.sdk.util.android.server.HttpServerVariables
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -14,7 +14,7 @@ class BasicJsInterface(private val webActivity: WebActivity) {
 
     @JavascriptInterface
     fun openNewWebActivity(path: String) {
-        val url = "http://localhost:${WebServerVariables.serverPort}$path"
+        val url = "http://localhost:${HttpServerVariables.serverPort}$path"
         webActivity.run {
             startActivity(Intent(this, WebActivity::class.java).apply {
                 putExtra("url", url)
@@ -31,8 +31,8 @@ class BasicJsInterface(private val webActivity: WebActivity) {
     }
 
     @AsyncJavascriptInterface
-    fun asyncMethodTest(a: String, b: String): JSONObject {
+    fun asyncMethodTest(a: Int, b: Int): JSONObject {
         TimeUnit.SECONDS.sleep(3)
-        return JSONObject().fluentPut("sum", (a.toInt() + b.toInt()).toString())
+        return JSONObject().set("sum", (a + b).toString())
     }
 }

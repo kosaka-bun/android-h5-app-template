@@ -14,9 +14,10 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import de.honoka.android.h5apptemplate.R
-import de.honoka.android.h5apptemplate.jsinterface.JavaScriptInterfaces
-import de.honoka.android.h5apptemplate.util.WebServer
-import de.honoka.android.h5apptemplate.util.WebServerVariables
+import de.honoka.android.h5apptemplate.util.JsInterfaceContainerFactory
+import de.honoka.sdk.util.android.jsinterface.JavascriptInterfaceContainer
+import de.honoka.sdk.util.android.server.HttpServer
+import de.honoka.sdk.util.android.server.HttpServerVariables
 import kotlin.system.exitProcess
 
 @SuppressLint("SetJavaScriptEnabled")
@@ -71,7 +72,7 @@ class WebActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var javaScriptInterfaces: JavaScriptInterfaces
+    private lateinit var jsInterfaceContainer: JavascriptInterfaceContainer
 
     private var fullScreenView: View? = null
 
@@ -116,12 +117,12 @@ class WebActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        WebServer.checkOrRestartInstance()
+        HttpServer.checkOrRestartInstance()
         super.onResume()
     }
 
     private fun initActivityParams() {
-        url = intent.getStringExtra("url") ?: "http://localhost:${WebServerVariables.serverPort}/"
+        url = intent.getStringExtra("url") ?: HttpServerVariables.getUrlByPrefix("")
         firstWebActivity = intent.getBooleanExtra("firstWebActivity", false)
     }
 
@@ -138,7 +139,7 @@ class WebActivity : AppCompatActivity() {
             setOnLongClickListener { true }
             isVerticalScrollBarEnabled = false
             scrollBarStyle = View.SCROLLBARS_OUTSIDE_OVERLAY
-            javaScriptInterfaces = JavaScriptInterfaces(this@WebActivity)
+            jsInterfaceContainer = JsInterfaceContainerFactory(this@WebActivity).getContainer()
             loadUrl(this@WebActivity.url)
         }
         onBackPressedDispatcher.addCallback(onBackPressedCallback)
@@ -148,9 +149,5 @@ class WebActivity : AppCompatActivity() {
     private fun showStatusBar(show: Boolean = true) {
         val flag = if(show) 0 else WindowManager.LayoutParams.FLAG_FULLSCREEN
         window.setFlags(flag, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-    }
-
-    fun evaluateJavascript(script: String, callback: (String) -> Unit = {}) = runOnUiThread {
-        webView.evaluateJavascript(script, callback)
     }
 }

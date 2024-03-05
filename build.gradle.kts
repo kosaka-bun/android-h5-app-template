@@ -1,5 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id("com.android.application") version "8.0.0" apply false
-    id("org.jetbrains.kotlin.android") version "1.8.0" apply false
+    val versions = de.honoka.gradle.buildsrc.Versions
+    //plugins
+    id("com.android.application") version versions.android apply false
+    kotlin("android") version versions.kotlin apply false
 }
