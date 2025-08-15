@@ -14,7 +14,7 @@
     "vant": "^4.7.3",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5",
-    "@honoka/js-utils": "1.0.0-dev"
+    "@honoka/js-utils": "1.0.0"
   },
   "devDependencies": {
     "@vant/auto-import-resolver": "^1.0.2",
