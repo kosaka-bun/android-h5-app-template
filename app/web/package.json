@@ -1,5 +1,5 @@
 {
-  "name": "android-h5-app-template-web",
+  "name": "android-h5-app-demo-web",
   "private": true,
   "scripts": {
     "dev": "vite",

@@ -1,8 +1,8 @@
-package de.honoka.android.h5apptemplate.jsinterface
+package de.honoka.android.h5appdemo.jsinterface
 
 import android.webkit.JavascriptInterface
 import cn.hutool.json.JSONObject
-import de.honoka.android.h5apptemplate.ui.WebActivity
+import de.honoka.android.h5appdemo.ui.WebActivity
 import de.honoka.sdk.util.android.jsinterface.AsyncJavascriptInterface
 import de.honoka.sdk.util.android.ui.toast
 import java.util.concurrent.TimeUnit

@@ -18,3 +18,4 @@ mkdir -p "$target_path"
 
 mv -f dist/* "$target_path/"
 rm -rf dist
+touch "$target_path/.gitkeep"

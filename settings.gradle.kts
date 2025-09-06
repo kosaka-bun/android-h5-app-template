@@ -22,7 +22,7 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-rootProject.name = "android-h5-app-template"
+rootProject.name = "android-h5-app-demo"
 
 include("app")
 include("app:web")

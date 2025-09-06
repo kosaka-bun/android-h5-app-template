@@ -1,4 +1,4 @@
-package de.honoka.android.h5apptemplate
+package de.honoka.android.h5appdemo
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -9,6 +9,7 @@ import org.junit.Test
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ExampleUnitTest {
+
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)

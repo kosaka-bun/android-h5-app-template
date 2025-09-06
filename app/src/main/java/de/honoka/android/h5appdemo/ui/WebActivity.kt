@@ -1,6 +1,6 @@
-package de.honoka.android.h5apptemplate.ui
+package de.honoka.android.h5appdemo.ui
 
-import de.honoka.android.h5apptemplate.jsinterface.TestJsInterface
+import de.honoka.android.h5appdemo.jsinterface.TestJsInterface
 import de.honoka.sdk.util.android.ui.AbstractWebActivity
 
 class WebActivity : AbstractWebActivity() {

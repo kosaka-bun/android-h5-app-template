@@ -13,11 +13,11 @@ java {
 }
 
 android {
-    namespace = "de.honoka.android.h5apptemplate"
+    namespace = "de.honoka.android.h5appdemo"
     compileSdk = libs.versions.a.compile.sdk.get().toInt()
 
     defaultConfig {
-        applicationId = "de.honoka.android.h5apptemplate"
+        applicationId = "de.honoka.android.h5appdemo"
         minSdk = libs.versions.a.min.sdk.get().toInt()
         targetSdk = compileSdk
         versionCode = libs.versions.pvc.app.get().toInt()

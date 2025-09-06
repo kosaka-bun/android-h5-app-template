@@ -1,8 +1,8 @@
-package de.honoka.android.h5apptemplate.ui
+package de.honoka.android.h5appdemo.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import de.honoka.android.h5apptemplate.R
+import de.honoka.android.h5appdemo.R
 import de.honoka.sdk.util.android.basic.GlobalComponents
 import de.honoka.sdk.util.android.basic.launchOnIo
 import de.honoka.sdk.util.android.server.HttpServer
