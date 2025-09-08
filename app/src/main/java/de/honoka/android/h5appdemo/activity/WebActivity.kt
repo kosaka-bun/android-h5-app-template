@@ -1,4 +1,4 @@
-package de.honoka.android.h5appdemo.ui
+package de.honoka.android.h5appdemo.activity
 
 import de.honoka.android.h5appdemo.jsinterface.TestJsInterface
 import de.honoka.sdk.util.android.ui.AbstractWebActivity

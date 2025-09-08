@@ -54,10 +54,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
 }
 
-honoka {
-    basic {
-        dependencies {
-            kotlinAndroid()
-        }
-    }
+honoka.basic.dependencies {
+    kotlinAndroid()
 }

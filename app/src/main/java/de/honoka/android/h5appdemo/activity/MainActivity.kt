@@ -1,4 +1,4 @@
-package de.honoka.android.h5appdemo.ui
+package de.honoka.android.h5appdemo.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
